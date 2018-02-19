@@ -37,7 +37,7 @@ public class BottomPanel extends JPanel {
 				if (key == KeyEvent.VK_ENTER) {
 					BottomPanel.mensajeUsuario = textField.getText();
 					interaccion.Dialogo();
-					display.runMedia();
+					Display.hasPlayed = false;
 					textField.setText("");
 					textField.grabFocus();
 			}
@@ -53,7 +53,7 @@ public class BottomPanel extends JPanel {
 			public void actionPerformed(ActionEvent Ejecucion) {
 				BottomPanel.mensajeUsuario = textField.getText();
 				interaccion.Dialogo();
-				display.runMedia();
+				Display.hasPlayed = false;
 				textField.setText("");
 				textField.grabFocus();
 			}

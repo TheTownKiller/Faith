@@ -26,7 +26,7 @@ public class Interaccion {
 			String decision = decision(BottomPanel.getMensajeUsuario());
 			
 			if (decision == "SI") {
-				Dialogo = frases.get(2) + " " + nombreUsuario + "!";
+				Dialogo = frases.get(2) + " " + nombreUsuario + frases.get(9);
 				stage = 'c';
 			}
 			else if (decision == "NO") {
@@ -36,6 +36,21 @@ public class Interaccion {
 			}else if (decision == "REPEAT") {
 				Dialogo = frases.get(8);
 				stage = 'b';
+			}
+		}else if(stage == 'c') {
+			
+			String textoLibre = getTextoLibre(BottomPanel.getMensajeUsuario());
+			
+			switch(textoLibre) {
+			
+			case "nombre": 
+				Dialogo = frases.get(5);
+				break;
+			case "nombreUsuario":
+				Dialogo = frases.get(10) + nombreUsuario + ".";
+				break;
+			
+			
 			}
 		}
 	}
@@ -68,5 +83,19 @@ public class Interaccion {
 			return "MEDIUM";
 		}else
 		return "SHORT";		
+	}
+	
+	public String getTextoLibre(String texto) {
+		if((texto.contains("cual") && texto.contains("tu") && texto.contains("nombre")) || 
+				(texto.contains("como") && texto.contains("te") && texto.contains("llamas"))){
+			return "nombre";
+		}if((texto.contains("como") && texto.contains("me") && texto.contains("llamo")) || 
+				(texto.contains("cual") && texto.contains("mi") && texto.contains("nombre"))) {
+			return "nombreUsuario";
+		}
+		return Dialogo;
+		
+		
+		
 	}
 }

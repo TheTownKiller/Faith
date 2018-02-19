@@ -1,10 +1,10 @@
 package interaccion;
 
-public class Animation {
+public class UrlAssignator {
 	
 	Interaccion interaccion = new Interaccion();
 	
-	public String getAnimation() {
+	public String getUrl() {
 		String type = interaccion.getType();
 		int randomizer = (int) (Math.random()*10);
 		if(type=="LONG" && randomizer>5 ) {
