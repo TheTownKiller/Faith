@@ -8,49 +8,105 @@ import jframe.BottomPanel;
 public class Interaccion {
 	FaithFileReader reader = new FaithFileReader();
 	String nombreUsuario;
+	PossibleTexts text = new PossibleTexts();
 	ArrayList<String> frases = reader.lecturaFaith();
-	public String Dialogo = frases.get(0) + " " + frases.get(1);
+	String designator = "maestro";
+	public String Dialogo = frases.get(0) + frases.get(1) + designator + "?";
 	boolean activado = true;
 	char stage = 'a';
 
 	public void Dialogo() {
 		if ((stage == 'a') && (BottomPanel.getMensajeUsuario().length() == 0)) {
 			Dialogo = frases.get(6);
-		} else if (stage == 'a'){
+		} else if (stage == 'a') {
 			asignarNombre(BottomPanel.getMensajeUsuario());
 			Dialogo = frases.get(3) + " " + nombreUsuario.toUpperCase().charAt(0)
 					+ nombreUsuario.substring(1, nombreUsuario.length()) + "?";
 			stage = 'b';
 			return;
-		}else if (stage == 'b') {
+		} else if (stage == 'b') {
 			String decision = decision(BottomPanel.getMensajeUsuario());
-			
+
 			if (decision == "SI") {
 				Dialogo = frases.get(2) + " " + nombreUsuario + frases.get(9);
 				stage = 'c';
-			}
-			else if (decision == "NO") {
+			} else if (decision == "NO") {
 				Dialogo = frases.get(7);
-				activado =true;
+				activado = true;
 				stage = 'a';
-			}else if (decision == "REPEAT") {
+			} else if (decision == "REPEAT") {
 				Dialogo = frases.get(8);
 				stage = 'b';
 			}
-		}else if(stage == 'c') {
-			
-			String textoLibre = getTextoLibre(BottomPanel.getMensajeUsuario());
-			
-			switch(textoLibre) {
-			
-			case "nombre": 
-				Dialogo = frases.get(5);
+		} else if (stage == 'c') {
+
+			String textoLibre = text.getTextoLibre(BottomPanel.getMensajeUsuario());
+			int randomizer = (int) (Math.random() * 10);
+
+			switch (textoLibre) {
+
+			case "nombre":
+				if (randomizer > 5) {
+					Dialogo = frases.get(5);
+					break;
+				} else {
+					Dialogo = frases.get(12);
+					break;
+				}
+			case "nombre2":
+				Dialogo = frases.get(11) + designator + "!";
 				break;
 			case "nombreUsuario":
-				Dialogo = frases.get(10) + nombreUsuario + ".";
+				if (randomizer > 5) {
+					Dialogo = frases.get(10) + nombreUsuario + ".";
+					break;
+				} else {
+					Dialogo = frases.get(13) + nombreUsuario + ".";
+					break;
+				}
+			case "quePuedoDecirte":
+				Dialogo = frases.get(14) + designator + "!";
 				break;
-			
-			
+			case "soyMujer":
+				if (designator == "maestra") {
+					Dialogo = frases.get(15) + designator + ".";
+					break;
+				} else if (designator == "maestro") {
+					designator = "maestra";
+					Dialogo = frases.get(16) + designator + ".";
+					break;
+				} else {
+					Dialogo = frases.get(17) + designator + "!";
+					break;
+				}
+			case "designatorChange":
+				if (randomizer > 5) {
+					Dialogo = "¿" + nombreUsuario + frases.get(18);
+					stage = 'd';
+					break;
+				} else {
+					Dialogo = "¿" + nombreUsuario + frases.get(21);
+					stage = 'd';
+					break;
+				}
+
+			case "presentation":
+				Dialogo = frases.get(4);
+				break;
+			}
+		} else if (stage == 'd') {
+			String decision = decision(BottomPanel.getMensajeUsuario());
+
+			if (decision == "SI") {
+				designator = nombreUsuario;
+				Dialogo = frases.get(19) + designator + ".";
+				stage = 'c';
+			} else if (decision == "NO") {
+				Dialogo = frases.get(20) + designator + ".";
+				stage = 'c';
+			} else if (decision == "REPEAT") {
+				Dialogo = frases.get(8);
+				stage = 'd';
 			}
 		}
 	}
@@ -75,27 +131,13 @@ public class Interaccion {
 			activado = false;
 		}
 	}
-	
+
 	public String getType() {
-		if(Dialogo.length() >= 25) {
+		if (Dialogo.length() >= 25) {
 			return "LONG";
-		}else if(Dialogo.length() >= 20) {
+		} else if (Dialogo.length() >= 20) {
 			return "MEDIUM";
-		}else
-		return "SHORT";		
-	}
-	
-	public String getTextoLibre(String texto) {
-		if((texto.contains("cual") && texto.contains("tu") && texto.contains("nombre")) || 
-				(texto.contains("como") && texto.contains("te") && texto.contains("llamas"))){
-			return "nombre";
-		}if((texto.contains("como") && texto.contains("me") && texto.contains("llamo")) || 
-				(texto.contains("cual") && texto.contains("mi") && texto.contains("nombre"))) {
-			return "nombreUsuario";
-		}
-		return Dialogo;
-		
-		
-		
+		} else
+			return "SHORT";
 	}
 }
