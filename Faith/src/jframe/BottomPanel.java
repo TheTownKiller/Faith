@@ -66,7 +66,7 @@ public class BottomPanel extends JPanel {
 		Font font = new Font("Arial", Font.BOLD, 18);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
-		g.drawString(interaccion.getDialogo(), 50, 50);
+		g.drawString(interaccion.getDialogo(), 50, 30);
 		repaint();
 
 	}

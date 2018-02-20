@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
+
 import interaccion.UrlAssignator;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -39,15 +41,16 @@ public class Display extends JFrame {
 		bottomPanel.setBackground(Color.BLACK);
 		mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);
 
-		mainSplit.setDividerLocation(850);
 		mainSplit.setDividerSize(0);
 		mainSplit.setResizeWeight(1);
+		
 
 		emp.setVideoSurface(mpf.newVideoSurface(canvas));
 
 		topPanel.add(canvas);
 
-		setSize(2000, 1000);
+		setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+		pack();
 		setLocationRelativeTo(null);
 		add(mainSplit);
 		setIconImage(icon);
@@ -56,23 +59,40 @@ public class Display extends JFrame {
 		setFocusable(true);
 		setCursor(cursor);
 		setTitle("Faith");
+		
+		restoreDefaults();
 
 	}
+	
+	private void restoreDefaults() {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                mainSplit.setDividerLocation((mainSplit.getSize().height *90) / 100);          
+            }
+        });
+    }
 
 	public void runMedia() {
+		
 		while (true) {
 			if (hasPlayed == false) {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
-					Thread.sleep(3500);
+					Thread.sleep(100);
+					Thread.sleep(emp.getLength()-100);
 				} catch (InterruptedException e) {
 					System.out.println("InterruptedException");
 				}
 				hasPlayed = true;
+				
 				emp.pause();
 			}
 			try {
 				Thread.sleep(50);
+				canvas.validate();
+				canvas.repaint();
 			} catch (InterruptedException e) {
 				System.out.println("InterruptedException");
 			}
