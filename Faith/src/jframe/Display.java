@@ -12,11 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
-
 import interaccion.UrlAssignator;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
+import utilities.WebSearch;
 
 public class Display extends JFrame {
 
@@ -35,7 +35,11 @@ public class Display extends JFrame {
 	MediaPlayerFactory mpf = new MediaPlayerFactory();
 	EmbeddedMediaPlayer emp = mpf.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
 	static boolean hasPlayed = false;
-
+	public static boolean isSearching = false;
+	public static int height;
+	public static int width;
+	public static boolean EndSearch = false;
+	
 	public void createDisplayable(BottomPanel bottomPanel) {
 
 		bottomPanel.setBackground(Color.BLACK);
@@ -43,7 +47,6 @@ public class Display extends JFrame {
 
 		mainSplit.setDividerSize(0);
 		mainSplit.setResizeWeight(1);
-		
 
 		emp.setVideoSurface(mpf.newVideoSurface(canvas));
 
@@ -59,44 +62,71 @@ public class Display extends JFrame {
 		setFocusable(true);
 		setCursor(cursor);
 		setTitle("Faith");
-		
+
 		restoreDefaults();
 
 	}
-	
-	private void restoreDefaults() {
-        SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                mainSplit.setDividerLocation((mainSplit.getSize().height *90) / 100);          
-            }
-        });
-    }
+	private void restoreDefaults() {
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				mainSplit.setDividerLocation((mainSplit.getSize().height * 90) / 100);
+			}
+		});
+	}
 
 	public void runMedia() {
-		
+
 		while (true) {
-			if (hasPlayed == false) {
+			if (isSearching) {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
 					Thread.sleep(100);
-					Thread.sleep(emp.getLength()-100);
+					Thread.sleep(emp.getLength() - 200);
 				} catch (InterruptedException e) {
 					System.out.println("InterruptedException");
 				}
-				hasPlayed = true;
-				
 				emp.pause();
+				switchVisible();
+				WebSearch.launch(WebSearch.class);
+				hasPlayed = true;
+				isSearching = false;
 			}
-			try {
-				Thread.sleep(50);
-				canvas.validate();
-				canvas.repaint();
-			} catch (InterruptedException e) {
-				System.out.println("InterruptedException");
+			if (EndSearch) {
+				switchVisible();
+				EndSearch = false;
+			}else {
+				if (hasPlayed == false) {
+					emp.playMedia(urlAssignator.getUrl());
+					try {
+						Thread.sleep(100);
+						Thread.sleep(emp.getLength() - 200);
+					} catch (InterruptedException e) {
+						System.out.println("InterruptedException");
+					}
+					hasPlayed = true;
+					emp.pause();
+				}
+				try {
+					Thread.sleep(50);
+					height = this.getHeight();
+					width = this.getWidth();
+					canvas.validate();
+					canvas.repaint();
+				} catch (InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
 			}
 		}
-
+	}
+	public void switchVisible() {
+		if(isVisible()) {
+			setVisible(false);
+		}else {
+			setVisible(true);
+		}
+		
 	}
 }

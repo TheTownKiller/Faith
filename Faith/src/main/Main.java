@@ -2,7 +2,6 @@ package main;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-
 import jframe.BottomPanel;
 import jframe.Display;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -17,5 +16,6 @@ public class Main  {
 	Display faith = new Display();
 	faith.createDisplayable(bottomPanel);
 	faith.runMedia();
+	
 	}
 }

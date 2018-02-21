@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import frases.FaithFileReader;
 import jframe.BottomPanel;
+import jframe.Display;
 
 public class Interaccion {
 	FaithFileReader reader = new FaithFileReader();
@@ -13,6 +14,7 @@ public class Interaccion {
 	String designator = "maestro";
 	public String Dialogo = frases.get(0) + frases.get(1) + designator + "?";
 	boolean activado = true;
+	public static String webUrl;
 	char stage = 'a';
 
 	public void Dialogo() {
@@ -92,6 +94,11 @@ public class Interaccion {
 
 			case "presentation":
 				Dialogo = frases.get(4);
+				break;
+			case "busqueda":
+				
+				Dialogo = frases.get(22) + designator + ".";
+				Display.isSearching = true;
 				break;
 			}
 		} else if (stage == 'd') {
