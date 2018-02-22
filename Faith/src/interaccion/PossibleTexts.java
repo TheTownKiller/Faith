@@ -22,18 +22,32 @@ public class PossibleTexts {
 				(texto.contains("soy") && texto.contains("mujer"))) {
 			return "soyMujer";
 		}
+		if ((texto.contains("que") && texto.contains("eres") || texto.contains("quien")) && (texto.contains("eres"))) {
+			return "presentation";
+		}
+		if (( texto.contains("busca")) && (texto.contains("en internet") || texto.contains("por internet"))) {
+			String[] busqueda = texto.split(" ");
+			String searched = "";
+			for(int i =0; i<busqueda.length ; i++) {
+				if(busqueda[i].startsWith("busca")) {
+					busqueda[i] = "";
+				}
+				searched += busqueda[i] + " ";
+			}
+			searched = searched.replace("en internet", "").replace("por internet", "");
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			return "busqueda";
+		}
+		
+		if (( texto.contains("busca"))) {
+			String searched = texto.replace("busca", "").replace("buscar", "").replace("buscame", "");
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			return "busqueda";
+		}
 		if ((texto.contains("no") && texto.contains("me") && texto.contains("llames") && (texto.contains("maestro") || 
 				texto.contains("maestra"))) || (texto.contains("llamame") && texto.contains("por") && texto.contains("mi") && 
 				texto.contains("nombre"))) {
 			return "designatorChange";
-		}
-		if ((texto.contains("que") && texto.contains("eres") || texto.contains("quien")) && (texto.contains("eres"))) {
-			return "presentation";
-		}
-		if (((texto.contains("busca") || texto.contains("buscame")) && (texto.contains("en") || texto.contains("por"))  && texto.contains("internet"))) {
-			String searched = texto.replace("buscame", "").replace("busca", "").replace("en", "").replace("por", "").replace("internet", "").replaceAll(" ", "");
-			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
-			return "busqueda";
 		}
 		return null;
 
