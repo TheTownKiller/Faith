@@ -38,9 +38,8 @@ public class PossibleTexts {
 			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
 			return "busqueda";
 		}
-		
 		if (( texto.contains("busca"))) {
-			String searched = texto.replace("busca", "").replace("buscar", "").replace("buscame", "");
+			String searched = texto.replace("buscame", "").replace("buscar", "").replace("busca", "");
 			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
 			return "busqueda";
 		}

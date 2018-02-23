@@ -2,7 +2,6 @@ package utilities;
 
 import interaccion.Interaccion;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -23,20 +22,21 @@ public class WebSearch extends Application {
 	@Override
 	public void start(Stage stage) {
 		Image img = new Image("/resources/FaithIcon.png");
-		Platform.setImplicitExit(false);
 		stage.setTitle("Faith");
 		stage.getIcons().add((img));
 		scene = new Scene(new Browser(), (Display.width - 15), (Display.height - 60), Color.web("#666970"));
 		stage.setScene(scene);
 		stage.show();
+		Display.firstSearch = false;
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent t) {
-				Display.EndSearch = true;
+				Display.endSearch = true;
+				stage.hide();
+				t.consume();
 			}
 		});
 	}
-
 }
 
 class Browser extends Region {

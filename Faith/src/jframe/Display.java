@@ -38,7 +38,8 @@ public class Display extends JFrame {
 	public static boolean isSearching = false;
 	public static int height;
 	public static int width;
-	public static boolean EndSearch = false;
+	public static boolean endSearch = false;
+	public static boolean firstSearch = true;
 	
 	public void createDisplayable(BottomPanel bottomPanel) {
 
@@ -80,7 +81,7 @@ public class Display extends JFrame {
 	public void runMedia() {
 
 		while (true) {
-			if (isSearching) {
+			if (isSearching && firstSearch) {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
 					Thread.sleep(100);
@@ -90,13 +91,34 @@ public class Display extends JFrame {
 				}
 				emp.pause();
 				switchVisible();
-				WebSearch.launch(WebSearch.class);
+				Thread webSearcher = new Thread()
+		        {
+		            @Override
+		            public void run()
+		            {
+		            	WebSearch.launch(WebSearch.class);
+		            }
+		        };
+		        webSearcher.start();
+				hasPlayed = true;
+				isSearching = false;
+			}if(isSearching && (firstSearch == false)) {
+				emp.playMedia(urlAssignator.getUrl());
+				try {
+					Thread.sleep(100);
+					Thread.sleep(emp.getLength() - 200);
+				} catch (InterruptedException e) {
+					System.out.println("InterruptedException");
+				}
+				emp.pause();
+				switchVisible();
+				//WebSearch.isShown = true;
 				hasPlayed = true;
 				isSearching = false;
 			}
-			if (EndSearch) {
+			if (endSearch) {
 				switchVisible();
-				EndSearch = false;
+				endSearch = false;
 			}else {
 				if (hasPlayed == false) {
 					emp.playMedia(urlAssignator.getUrl());
