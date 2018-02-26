@@ -66,7 +66,28 @@ public class BottomPanel extends JPanel {
 		Font font = new Font("Arial", Font.BOLD, 18);
 		g.setColor(Color.WHITE);
 		g.setFont(font);
+		if(Display.afterRun){
+			interaccion.Dialogo();
+			Display.afterRun = false;
+			Display.hasPlayed = false;
+		}if(interaccion.getDialogo().length() > 55) {
+			String[]split = interaccion.getDialogo().split(" ");
+			String DrawUp = "";
+			String DrawDown = "";
+			int contador = 0;
+			for(int i = 0; i<split.length; i++) {
+				contador += split[i].length();
+				if(contador >= 50) {
+					DrawDown += split[i] + " ";
+				}else {
+					DrawUp += split[i] + " ";
+				}
+			}
+			g.drawString(DrawUp, 50, 30);
+			g.drawString(DrawDown, 50, 50);
+		}else {
 		g.drawString(interaccion.getDialogo(), 50, 30);
+		}
 		repaint();
 
 	}

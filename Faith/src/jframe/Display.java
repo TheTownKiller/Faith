@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
+
+import interaccion.Interaccion;
 import interaccion.UrlAssignator;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -34,11 +36,12 @@ public class Display extends JFrame {
 	Canvas canvas = new Canvas();
 	MediaPlayerFactory mpf = new MediaPlayerFactory();
 	EmbeddedMediaPlayer emp = mpf.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
-	static boolean hasPlayed = false;
+	public static boolean hasPlayed = false;
 	public static boolean isSearching = false;
 	public static int height;
 	public static int width;
 	public static boolean endSearch = false;
+	public static boolean afterRun = false;
 	public static boolean firstSearch = true;
 	
 	public void createDisplayable(BottomPanel bottomPanel) {
@@ -85,17 +88,15 @@ public class Display extends JFrame {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
 					Thread.sleep(100);
-					Thread.sleep(emp.getLength() - 200);
+					Thread.sleep(emp.getLength() - 150);
 				} catch (InterruptedException e) {
 					System.out.println("InterruptedException");
 				}
 				emp.pause();
 				switchVisible();
-				Thread webSearcher = new Thread()
-		        {
+				Thread webSearcher = new Thread(){
 		            @Override
-		            public void run()
-		            {
+		            public void run(){
 		            	WebSearch.launch(WebSearch.class);
 		            }
 		        };
@@ -106,17 +107,21 @@ public class Display extends JFrame {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
 					Thread.sleep(100);
-					Thread.sleep(emp.getLength() - 200);
+					Thread.sleep(emp.getLength() - 150);
 				} catch (InterruptedException e) {
 					System.out.println("InterruptedException");
 				}
 				emp.pause();
 				switchVisible();
-				//WebSearch.isShown = true;
+				synchronized (WebSearch.scene) {
+					WebSearch.scene.notifyAll();
+				}
 				hasPlayed = true;
 				isSearching = false;
 			}
 			if (endSearch) {
+				Interaccion.stage = 'e';
+				afterRun = true;
 				switchVisible();
 				endSearch = false;
 			}else {
@@ -124,7 +129,7 @@ public class Display extends JFrame {
 					emp.playMedia(urlAssignator.getUrl());
 					try {
 						Thread.sleep(100);
-						Thread.sleep(emp.getLength() - 200);
+						Thread.sleep(emp.getLength() - 150);
 					} catch (InterruptedException e) {
 						System.out.println("InterruptedException");
 					}
@@ -152,3 +157,4 @@ public class Display extends JFrame {
 		
 	}
 }
+

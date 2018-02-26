@@ -17,7 +17,7 @@ import jframe.Display;
 
 public class WebSearch extends Application {
 
-	private Scene scene;
+	public static Scene scene;
 
 	@Override
 	public void start(Stage stage) {
@@ -32,8 +32,19 @@ public class WebSearch extends Application {
 			@Override
 			public void handle(WindowEvent t) {
 				Display.endSearch = true;
-				stage.hide();
 				t.consume();
+				stage.hide();
+				synchronized (scene) {
+					try {
+						scene.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				scene = new Scene(new Browser(), (Display.width - 15), (Display.height - 60), Color.web("#666970"));
+				stage.setScene(scene);
+				stage.show();
 			}
 		});
 	}
@@ -68,3 +79,4 @@ class Browser extends Region {
 		return 500;
 	}
 }
+

@@ -15,7 +15,7 @@ public class Interaccion {
 	public String Dialogo = frases.get(0) + frases.get(1) + designator + "?";
 	boolean activado = true;
 	public static String webUrl;
-	char stage = 'a';
+	public static char stage = 'a';
 
 	public void Dialogo() {
 		if ((stage == 'a') && (BottomPanel.getMensajeUsuario().length() == 0)) {
@@ -115,6 +115,16 @@ public class Interaccion {
 				Dialogo = frases.get(8);
 				stage = 'd';
 			}
+		}
+		else if (stage == 'e') {
+			int randomizer = (int) (Math.random() * 10);
+			
+			if(randomizer > 5) {
+				Dialogo = frases.get(23);
+			}else {
+				Dialogo = frases.get(24);
+			}
+			stage = 'c';
 		}
 	}
 
