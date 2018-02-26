@@ -77,7 +77,7 @@ public class BottomPanel extends JPanel {
 			int contador = 0;
 			for(int i = 0; i<split.length; i++) {
 				contador += split[i].length();
-				if(contador >= 50) {
+				if(contador >= 45) {
 					DrawDown += split[i] + " ";
 				}else {
 					DrawUp += split[i] + " ";

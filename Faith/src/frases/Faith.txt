@@ -12,10 +12,10 @@ Por supuesto, su nombre es
 ¡Puede llamarme Faith 
 Mi nombre es Faith.
 Dejeme recordárselo, su nombre es 
-!Lo que usted quiera 
+¡Lo que usted quiera 
 Lo se 
 Oh, disculpeme 
-¡Lo se, tengo muy buena memoria 
+¡Gracias por la información 
  esta mejor?
  Bien, a partir de ahora le llamaré 
  Oh, entonces continuaré llamandole 
@@ -23,3 +23,10 @@ Oh, disculpeme
 Por supuesto, esto es lo que encontrado 
 Espero que fuese lo que buscaba.
 ¿Necesita algo más?
+¡De nada 
+¡Estoy para ayudar 
+Bueno, ¡aun no he hecho nada por usted 
+Que agradecido, ¡pero si aun no he hecho nada por usted!
+¡Lo se, tengo muy buena memoria 
+Ohh, me temo que no estoy programada para ese tipo de cosas, lo siento.
+Agradezco la intención pero no podrá ser 

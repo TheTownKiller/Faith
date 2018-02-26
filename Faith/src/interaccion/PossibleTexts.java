@@ -10,6 +10,11 @@ public class PossibleTexts {
 		if ((texto.contains("como") && texto.contains("puedo") && texto.contains("llamarte"))) {
 			return "nombre2";
 		}
+		if ((texto.contains("no") && texto.contains("me") && texto.contains("llamo")) ||
+				(texto.contains("cambiar") &&(texto.contains("de") || texto.contains("el")) && texto.contains("nombre"))
+				|| (texto.contains("cambiame") && (texto.contains("de") || texto.contains("el")) && texto.contains("nombre"))) {
+			return "nameChange";
+		}
 		if ((texto.contains("como") && texto.contains("me") && texto.contains("llamo"))
 				|| (texto.contains("cual") && texto.contains("mi") && texto.contains("nombre"))) {
 			return "nombreUsuario";
@@ -34,19 +39,27 @@ public class PossibleTexts {
 				}
 				searched += busqueda[i] + " ";
 			}
-			searched = searched.replace("en internet", "").replace("por internet", "");
-			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			searched = searched.replaceFirst("en internet", "").replaceFirst("por internet", "");
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
+			+ searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
 			return "busqueda";
 		}
 		if (( texto.contains("busca"))) {
-			String searched = texto.replace("buscame", "").replace("buscar", "").replace("busca", "");
-			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq=" + searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			String searched = texto.replaceFirst("buscame", "").replaceFirst("buscar", "").replaceFirst("busca", "");
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
+			+ searched + "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
 			return "busqueda";
 		}
 		if ((texto.contains("no") && texto.contains("me") && texto.contains("llames") && (texto.contains("maestro") || 
 				texto.contains("maestra"))) || (texto.contains("llamame") && texto.contains("por") && texto.contains("mi") && 
 				texto.contains("nombre"))) {
 			return "designatorChange";
+		}
+		if ((texto.contains("gracias") || (texto.contains("estoy") && texto.contains("agradecido")))) {
+			return "gracias";
+		}
+		if ((texto.contains("besame") || (texto.contains("casate") && texto.contains("conmigo")) || (texto.contains("dame") && texto.contains("un beso")))) {
+			return "loveattempt";
 		}
 		return null;
 

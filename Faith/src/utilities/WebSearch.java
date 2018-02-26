@@ -38,8 +38,7 @@ public class WebSearch extends Application {
 					try {
 						scene.wait();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println("InterruptedException");
 					}
 				}
 				scene = new Scene(new Browser(), (Display.width - 15), (Display.height - 60), Color.web("#666970"));
