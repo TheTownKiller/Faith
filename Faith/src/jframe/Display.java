@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -43,12 +44,16 @@ public class Display extends JFrame {
 	public static boolean endSearch = false;
 	public static boolean afterRun = false;
 	public static boolean firstSearch = true;
-	
+
 	public void createDisplayable(BottomPanel bottomPanel) {
 
-		bottomPanel.setBackground(Color.BLACK);
-		mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);
+		Dimension bottomPanelDimension = new Dimension(0, 65);
+		Dimension dimension = new Dimension(1000, 100);
 
+		bottomPanel.setBackground(Color.BLACK);
+		bottomPanel.setMinimumSize(bottomPanelDimension);
+
+		mainSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);
 		mainSplit.setDividerSize(0);
 		mainSplit.setResizeWeight(1);
 
@@ -56,6 +61,7 @@ public class Display extends JFrame {
 
 		topPanel.add(canvas);
 
+		setMinimumSize(dimension);
 		setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 		pack();
 		setLocationRelativeTo(null);
@@ -94,16 +100,17 @@ public class Display extends JFrame {
 				}
 				emp.pause();
 				switchVisible();
-				Thread webSearcher = new Thread(){
-		            @Override
-		            public void run(){
-		            	WebSearch.launch(WebSearch.class);
-		            }
-		        };
-		        webSearcher.start();
+				Thread webSearcher = new Thread() {
+					@Override
+					public void run() {
+						WebSearch.launch(WebSearch.class);
+					}
+				};
+				webSearcher.start();
 				hasPlayed = true;
 				isSearching = false;
-			}if(isSearching && (firstSearch == false)) {
+			}
+			if (isSearching && (firstSearch == false)) {
 				emp.playMedia(urlAssignator.getUrl());
 				try {
 					Thread.sleep(100);
@@ -124,7 +131,7 @@ public class Display extends JFrame {
 				afterRun = true;
 				switchVisible();
 				endSearch = false;
-			}else {
+			} else {
 				if (hasPlayed == false) {
 					emp.playMedia(urlAssignator.getUrl());
 					try {
@@ -140,6 +147,7 @@ public class Display extends JFrame {
 					Thread.sleep(50);
 					height = this.getHeight();
 					width = this.getWidth();
+					textResize();
 					canvas.validate();
 					canvas.repaint();
 				} catch (InterruptedException e) {
@@ -148,13 +156,21 @@ public class Display extends JFrame {
 			}
 		}
 	}
+
 	public void switchVisible() {
-		if(isVisible()) {
+		if (isVisible()) {
 			setVisible(false);
-		}else {
+		} else {
 			setVisible(true);
 		}
-		
+
+	}
+
+	public void textResize() {
+		if (width < 1500) {
+			BottomPanel.compactLetter = 30;
+		} else {
+			BottomPanel.compactLetter = 50;
+		}
 	}
 }
-

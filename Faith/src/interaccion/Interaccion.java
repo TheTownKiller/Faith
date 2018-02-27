@@ -23,6 +23,7 @@ public class Interaccion {
 		if ((stage == 'a') && (BottomPanel.getMensajeUsuario().length() == 0)) {
 			Dialogo = frases.get(6);
 		} else if (stage == 'a') {
+			activado = true;
 			asignarNombre(BottomPanel.getMensajeUsuario());
 			Dialogo = frases.get(3) + " " + nombreUsuario.toUpperCase().charAt(0)
 					+ nombreUsuario.substring(1, nombreUsuario.length()) + "?";
@@ -86,13 +87,13 @@ public class Interaccion {
 					Dialogo = frases.get(16) + designator + ".";
 					break;
 				} else {
-					if(alreadyTold) {
-					Dialogo = frases.get(29) + designator + "!";	
-					break;
-					}else {
-					Dialogo = frases.get(17) + designator + "!";
-					alreadyTold = true;
-					break;
+					if (alreadyTold) {
+						Dialogo = frases.get(29) + designator + "!";
+						break;
+					} else {
+						Dialogo = frases.get(17) + designator + "!";
+						alreadyTold = true;
+						break;
 					}
 				}
 			case "designatorChange":
@@ -117,18 +118,18 @@ public class Interaccion {
 				break;
 			case "gracias":
 				if (randomizer > 5) {
-					if(hasHelped) {
-						Dialogo = frases.get(25) + designator + "!";	
+					if (hasHelped) {
+						Dialogo = frases.get(25) + designator + "!";
 						hasHelped = false;
-					}else {
+					} else {
 						Dialogo = frases.get(27) + designator + "!";
 					}
 					break;
 				} else {
-					if(hasHelped) {
+					if (hasHelped) {
 						Dialogo = frases.get(26) + designator + "!";
 						hasHelped = false;
-					}else {
+					} else {
 						Dialogo = frases.get(28);
 					}
 					break;
@@ -136,12 +137,39 @@ public class Interaccion {
 			case "loveattempt":
 				if (randomizer > 5) {
 					Dialogo = frases.get(30);
-				}else {
-					Dialogo = frases.get(31) + designator + ".";	
-				}break;
+				} else {
+					Dialogo = frases.get(31) + designator + ".";
+				}
+				break;
+			case "loveattempt2":
+				if (randomizer > 5) {
+					Dialogo = frases.get(32);
+				} else {
+					Dialogo = frases.get(33) + designator + ".";
+				}
+				break;
+			case "nameChange":
+				hasHelped = true;
+				if (randomizer > 5) {
+					Dialogo = frases.get(34);
+				} else {
+					Dialogo = frases.get(35);
+				}
+				stage = 'a';
+				break;
+			case "sayMyName":
+				hasHelped = true;
+				Dialogo = frases.get(36) + nombreUsuario + ".";
+				break;
+			case "queEs":
+				hasHelped = true;
+				Dialogo = frases.get(37);
+				Display.isSearching = true;
+				break;
+				
 			}
 		} else if (stage == 'd') {
-			
+
 			String decision = decision(BottomPanel.getMensajeUsuario());
 
 			if (decision == "SI") {
