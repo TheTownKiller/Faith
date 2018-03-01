@@ -35,31 +35,44 @@ public class PossibleTexts {
 		if ((texto.contains("que es"))) {
 			String[] busqueda = texto.split(" ");
 			String searched = "";
+			boolean startCollecting = false;
 			for (int i = 0; i < busqueda.length; i++) {
-				if(busqueda[i].startsWith("¿")) {
-					busqueda[i] = busqueda[i].substring(1);
+				if (busqueda[i].startsWith("¿") || busqueda[i].equals("que")) {
+					startCollecting = true;
 				}
-				busqueda[i].replace("//?", "");
-				if (busqueda[i].equals("que") || busqueda[i].equals("es") || busqueda[i].equals("un")
-						|| busqueda[i].equals("una") || busqueda[i].equals("la") || busqueda[i].equals("el")) {
-					busqueda[i] = "";
-				}
-				if (busqueda[i] != "") {
-					searched += busqueda[i] + " ";
+				if (startCollecting) {
+					if (busqueda[i].startsWith("¿")) {
+						busqueda[i] = busqueda[i].substring(1);
+					}
+					busqueda[i].replace("//?", "");
+					if (busqueda[i].equals("que") || busqueda[i].equals("es") || busqueda[i].equals("un")
+							|| busqueda[i].equals("una") || busqueda[i].equals("la") || busqueda[i].equals("el")) {
+						busqueda[i] = "";
+					}
+					if (busqueda[i] != "") {
+						searched += busqueda[i] + " ";
+					}
 				}
 			}
+
 			Interaccion.webUrl = "https://es.wikipedia.org/wiki/" + searched;
 			return "queEs";
 		}
 		if ((texto.contains("busca")) && (texto.contains("en internet") || texto.contains("por internet"))) {
 			String[] busqueda = texto.split(" ");
 			String searched = "";
+			boolean startCollecting = false;
 			for (int i = 0; i < busqueda.length; i++) {
 				if (busqueda[i].startsWith("busca")) {
-					busqueda[i] = "";
+					startCollecting = true;
 				}
-				if (busqueda[i] != "") {
-					searched += busqueda[i] + " ";
+				if (startCollecting) {
+					if (busqueda[i].startsWith("busca")) {
+						busqueda[i] = "";
+					}
+					if (busqueda[i] != "") {
+						searched += busqueda[i] + " ";
+					}
 				}
 			}
 			searched = searched.replaceFirst("en internet", "").replaceFirst("por internet", "");
@@ -69,7 +82,22 @@ public class PossibleTexts {
 			return "busqueda";
 		}
 		if ((texto.contains("busca"))) {
-			String searched = texto.replaceFirst("buscame", "").replaceFirst("buscar", "").replaceFirst("busca", "");
+			String[] busqueda = texto.split(" ");
+			String searched = "";
+			boolean startCollecting = false;
+			for (int i = 0; i < busqueda.length; i++) {
+				if (busqueda[i].startsWith("busca")) {
+					startCollecting = true;
+				}
+				if (startCollecting) {
+					if (busqueda[i].startsWith("busca")) {
+						busqueda[i] = "";
+					}
+					if (busqueda[i] != "") {
+						searched += busqueda[i] + " ";
+					}
+				}
+			}
 			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
 					+ searched
 					+ "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
