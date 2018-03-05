@@ -8,12 +8,14 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
-
 import interaccion.Interaccion;
 import interaccion.UrlAssignator;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -34,6 +36,7 @@ public class Display extends JFrame {
 	UrlAssignator urlAssignator = new UrlAssignator();
 	JPanel topPanel = new JPanel(new BorderLayout());
 	JSplitPane mainSplit;
+	Interaccion interaccion = new Interaccion();
 	Canvas canvas = new Canvas();
 	MediaPlayerFactory mpf = new MediaPlayerFactory();
 	EmbeddedMediaPlayer emp = mpf.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
@@ -72,6 +75,11 @@ public class Display extends JFrame {
 		setFocusable(true);
 		setCursor(cursor);
 		setTitle("Faith");
+		addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                interaccion.dataSaver();
+            }
+        });
 
 		restoreDefaults();
 

@@ -1,23 +1,27 @@
 package interaccion;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-
 import frases.FaithFileReader;
 import jframe.BottomPanel;
 import jframe.Display;
 
 public class Interaccion {
-	FaithFileReader reader = new FaithFileReader();
-	String nombreUsuario;
-	PossibleTexts text = new PossibleTexts();
-	ArrayList<String> frases = reader.lecturaFaith();
-	String designator = "maestro";
-	public String Dialogo = frases.get(0) + frases.get(1) + designator + "?";
-	boolean activado = true;
+	private FaithFileReader reader = new FaithFileReader();
+	private PossibleTexts text = new PossibleTexts();
+	private ArrayList<String> frases = reader.lecturaFaith();
+	private boolean activado = false;
+	private boolean hasHelped = false;
+	private boolean alreadyTold = false;
 	public static String webUrl;
 	public static char stage = 'a';
-	private boolean hasHelped = false;
-	boolean alreadyTold = false;
+	public String Dialogo = firstTimeTalk();
+	public static String designator = "maestro";
+	public static String nombreUsuario = "";
+	public static boolean firstTime = true;
 
 	public void Dialogo() {
 		if ((stage == 'a') && (BottomPanel.getMensajeUsuario().length() == 0)) {
@@ -28,6 +32,7 @@ public class Interaccion {
 			Dialogo = frases.get(3) + " " + nombreUsuario.toUpperCase().charAt(0)
 					+ nombreUsuario.substring(1, nombreUsuario.length()) + "?";
 			stage = 'b';
+			activado = false;
 			return;
 		} else if (stage == 'b') {
 			String decision = decision(BottomPanel.getMensajeUsuario());
@@ -37,7 +42,6 @@ public class Interaccion {
 				stage = 'c';
 			} else if (decision == "NO") {
 				Dialogo = frases.get(7);
-				activado = true;
 				stage = 'a';
 			} else if (decision == "REPEAT") {
 				Dialogo = frases.get(8);
@@ -166,7 +170,7 @@ public class Interaccion {
 				Dialogo = frases.get(37);
 				Display.isSearching = true;
 				break;
-				
+
 			}
 		} else if (stage == 'd') {
 
@@ -223,5 +227,45 @@ public class Interaccion {
 			return "MEDIUM";
 		} else
 			return "SHORT";
+	}
+
+	public void dataSaver() {
+		BufferedWriter writer = null;
+		if(nombreUsuario == "") {
+			return;
+		}
+		try {
+			File saveData = new File("Faith_saveData");
+			writer = new BufferedWriter(new FileWriter(saveData));
+			writer.write(nombreUsuario);
+			writer.newLine();
+			writer.write(designator);
+			writer.newLine();
+			writer.write("c");
+		} catch (Exception e) {
+			System.out.println("Write Exception");
+		} finally {
+			try {
+				writer.close();
+			} catch (IOException e) {
+				System.out.println("Writer on close exception");
+			}
+
+		}
+	}
+
+	public String firstTimeTalk() {
+		String resultado;
+		int randomizer = (int) (Math.random() * 10);
+		if (firstTime) {
+			resultado = frases.get(0) + frases.get(1) + designator + "?";
+		} else {
+			if (randomizer > 5) {
+				resultado = frases.get(38) + designator + ".";
+			}else {
+				resultado = frases.get(39) + nombreUsuario + ".";
+			}
+		}
+		return resultado;
 	}
 }
