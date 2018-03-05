@@ -76,9 +76,8 @@ public class PossibleTexts {
 				}
 			}
 			searched = searched.replaceFirst("en internet", "").replaceFirst("por internet", "");
-			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
-					+ searched
-					+ "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" 
+			+ searched + "&oq="+ searched;
 			return "busqueda";
 		}
 		if ((texto.contains("busca"))) {
@@ -98,9 +97,8 @@ public class PossibleTexts {
 					}
 				}
 			}
-			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
-					+ searched
-					+ "&gs_l=psy-ab.3...2029.2286.0.2429.5.4.0.0.0.0.0.0..0.0....0...1.1.64.psy-ab..5.0.0.0...0.KW82B7fMHwk";
+			Interaccion.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q="
+			+ searched + "&oq="+ searched;
 			return "busqueda";
 		}
 		if ((texto.contains("no") && texto.contains("me") && texto.contains("llames")
@@ -122,8 +120,28 @@ public class PossibleTexts {
 		if ((texto.contains("di") && texto.contains("mi") && texto.contains("nombre"))) {
 			return "sayMyName";
 		}
+		if ((texto.contains("como llegar a"))) {
+			String[] busqueda = texto.split(" ");
+			String searched = "";
+			boolean startCollecting = false;
+			for (int i = 0; i < busqueda.length; i++) {
+				if (busqueda[i].startsWith("llegar")) {
+					startCollecting = true;
+				}
+				if (startCollecting) {
+					if (busqueda[i].startsWith("llegar") || busqueda[i].equals("a")) {
+						busqueda[i] = "";
+					}
+					if (busqueda[i] != "") {
+						searched += busqueda[i] + " ";
+					}
+				}
+			}
+			Interaccion.webUrl = "https://www.google.es/maps/dir/mi ubicación/" + searched;
+			return "comoLlegar";
+		}
 		return null;
-
+		
 	}
 
 }

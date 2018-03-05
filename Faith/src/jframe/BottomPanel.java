@@ -80,7 +80,7 @@ public class BottomPanel extends JPanel {
 				Display.hasPlayed = false;
 				textField.setText("");
 				textField.grabFocus();
-				count = (memory.size() - 1);
+				count = memory.size();
 			}
 		});
 		this.add(buttonHablar);

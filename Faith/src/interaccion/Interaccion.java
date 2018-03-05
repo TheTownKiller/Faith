@@ -170,6 +170,11 @@ public class Interaccion {
 				Dialogo = frases.get(37);
 				Display.isSearching = true;
 				break;
+			case "comoLlegar":
+				hasHelped = true;
+				Dialogo = frases.get(40) + designator + ".";
+				Display.isSearching = true;
+				break;
 
 			}
 		} else if (stage == 'd') {
