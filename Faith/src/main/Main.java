@@ -15,7 +15,7 @@ import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 public class Main {
 
 	public static void main(String[] args) {
-		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Users/Emman/Desktop/VideoLAN/VLC");
+		NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "C:/Program Files/VideoLAN/VLC");
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		try {
 			BufferedReader fb = new BufferedReader(new FileReader("C:/Users/Emman/git/Faith/Faith/Faith_saveData"));
@@ -28,6 +28,7 @@ public class Main {
 			Display faith = new Display();
 			faith.createDisplayable(bottomPanel);
 			faith.runMedia();
+			
 		} catch (FileNotFoundException e) {
 			BottomPanel bottomPanel = new BottomPanel();
 			Display faith = new Display();

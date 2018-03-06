@@ -9,5 +9,17 @@
 	<classpathentry kind="lib" path="C:/Users/Emman/eclipse-workspace2/vlcj-3.0.1/vlcj-3.0.1-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Emman/eclipse-workspace2/vlcj-3.0.1/vlcj-3.0.1-tests.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Emman/eclipse-workspace2/vlcj-3.0.1/vlcj-3.0.1-test-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/voice-cmu-slt-hsmm-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-client-5.2-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-de-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-en-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-fr-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-it-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-lb-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-ru-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-sv-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-te-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-lang-tr-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Emman/Desktop/Mary TTS/marytts-5.2/lib/marytts-runtime-5.2-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

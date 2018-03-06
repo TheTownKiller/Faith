@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import interaccion.Interaccion;
+import utilities.TextToSpeech;
+
 
 public class BottomPanel extends JPanel {
 
@@ -27,11 +28,13 @@ public class BottomPanel extends JPanel {
 	public static int compactLetter = 55;
 	private ArrayList<String> memory = new ArrayList<String>();
 	private int count = memory.size();
+	private boolean initial = true;
 
 	public BottomPanel() {
 		textField = new JTextField(20);
 		textField.setFont(textField.getFont().deriveFont(20f));
 		textField.setForeground(Color.BLACK);
+		TextToSpeech tts = new TextToSpeech("cmu-slt-hsmm");
 		KeyAdapter keyListener = new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -40,15 +43,16 @@ public class BottomPanel extends JPanel {
 				if (key == KeyEvent.VK_ENTER) {
 					BottomPanel.mensajeUsuario = textField.getText();
 					memory.add(textField.getText());
-					interaccion.Dialogo();
+					interaccion.Dialogo();	
 					Display.hasPlayed = false;
 					textField.setText("");
 					textField.grabFocus();
 					count = memory.size();
+					tts.say(interaccion.getDialogo());
 				}
 				if (key == KeyEvent.VK_UP) {
 					if (memory.size() != 0) {
-						
+
 						if (count != 0) {
 							count -= 1;
 						}
@@ -57,12 +61,12 @@ public class BottomPanel extends JPanel {
 				}
 				if (key == KeyEvent.VK_DOWN) {
 					if (memory.size() != 0) {
-						if(count != memory.size()-1) {
+						if (count != memory.size() - 1) {
 							count += 1;
 						}
-						
+
 						textField.setText(memory.get(count));
-						
+
 					}
 				}
 			}
@@ -120,6 +124,13 @@ public class BottomPanel extends JPanel {
 
 	public static String getMensajeUsuario() {
 		return (BottomPanel.mensajeUsuario.toLowerCase());
+	}
+	public void initializeTTS() {
+		if(initial) {
+			
+		}else {
+			
+		}
 	}
 
 }
