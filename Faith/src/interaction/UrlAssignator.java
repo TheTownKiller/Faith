@@ -1,11 +1,11 @@
-package interaccion;
+package interaction;
 
 public class UrlAssignator {
 	
-	Interaccion interaccion = new Interaccion();
+	Interaction interaction = new Interaction();
 	
 	public String getUrl() {
-		String type = interaccion.getType();
+		String type = interaction.getType();
 		int randomizer = (int) (Math.random()*10);
 		if(type=="LONG" && randomizer>5 ) {
 			return "/src/resources/25Chars.mp4";

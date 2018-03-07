@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import interaccion.Interaccion;
+import interaction.Interaction;
 import utilities.TextToSpeech;
-
 
 public class BottomPanel extends JPanel {
 
@@ -23,12 +22,11 @@ public class BottomPanel extends JPanel {
 	private static final long serialVersionUID = -2305478594970318760L;
 
 	private JTextField textField;
-	private Interaccion interaccion = new Interaccion();
-	public static String mensajeUsuario;
+	private Interaction interaction = new Interaction();
+	public static String userMessage;
 	public static int compactLetter = 55;
 	private ArrayList<String> memory = new ArrayList<String>();
 	private int count = memory.size();
-	private boolean initial = true;
 
 	public BottomPanel() {
 		textField = new JTextField(20);
@@ -41,18 +39,17 @@ public class BottomPanel extends JPanel {
 				int key = e.getKeyCode();
 
 				if (key == KeyEvent.VK_ENTER) {
-					BottomPanel.mensajeUsuario = textField.getText();
+					BottomPanel.userMessage = textField.getText();
 					memory.add(textField.getText());
-					interaccion.Dialogo();	
+					interaction.dialogue();
 					Display.hasPlayed = false;
 					textField.setText("");
 					textField.grabFocus();
 					count = memory.size();
-					tts.say(interaccion.getDialogo());
+					tts.say(interaction.getDialogue());
 				}
 				if (key == KeyEvent.VK_UP) {
 					if (memory.size() != 0) {
-
 						if (count != 0) {
 							count -= 1;
 						}
@@ -64,9 +61,7 @@ public class BottomPanel extends JPanel {
 						if (count != memory.size() - 1) {
 							count += 1;
 						}
-
 						textField.setText(memory.get(count));
-
 					}
 				}
 			}
@@ -74,20 +69,20 @@ public class BottomPanel extends JPanel {
 		textField.addKeyListener(keyListener);
 		this.add(textField);
 
-		JButton buttonHablar = new JButton(" Hablar! ");
-		buttonHablar.addActionListener(new ActionListener() {
+		JButton speakButton = new JButton(" Hablar! ");
+		speakButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent Ejecucion) {
-				BottomPanel.mensajeUsuario = textField.getText();
+			public void actionPerformed(ActionEvent actEv) {
+				BottomPanel.userMessage = textField.getText();
 				memory.add(textField.getText());
-				interaccion.Dialogo();
+				interaction.dialogue();
 				Display.hasPlayed = false;
 				textField.setText("");
 				textField.grabFocus();
 				count = memory.size();
 			}
 		});
-		this.add(buttonHablar);
+		this.add(speakButton);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -96,18 +91,18 @@ public class BottomPanel extends JPanel {
 		g.setColor(Color.WHITE);
 		g.setFont(font);
 		if (Display.afterRun) {
-			interaccion.Dialogo();
+			interaction.dialogue();
 			Display.afterRun = false;
 			Display.hasPlayed = false;
 		}
-		if (interaccion.getDialogo().length() > compactLetter) {
-			String[] split = interaccion.getDialogo().split(" ");
+		if (interaction.getDialogue().length() > compactLetter) {
+			String[] split = interaction.getDialogue().split(" ");
 			String DrawUp = "";
 			String DrawDown = "";
-			int contador = 0;
+			int count = 0;
 			for (int i = 0; i < split.length; i++) {
-				contador += split[i].length();
-				if (contador >= (compactLetter - 10)) {
+				count += split[i].length();
+				if (count >= (compactLetter - 10)) {
 					DrawDown += split[i] + " ";
 				} else {
 					DrawUp += split[i] + " ";
@@ -116,21 +111,13 @@ public class BottomPanel extends JPanel {
 			g.drawString(DrawUp, 50, 30);
 			g.drawString(DrawDown, 50, 55);
 		} else {
-			g.drawString(interaccion.getDialogo(), 50, 30);
+			g.drawString(interaction.getDialogue(), 50, 30);
 		}
 		repaint();
 
 	}
 
-	public static String getMensajeUsuario() {
-		return (BottomPanel.mensajeUsuario.toLowerCase());
+	public static String getUserMessage() {
+		return (BottomPanel.userMessage.toLowerCase());
 	}
-	public void initializeTTS() {
-		if(initial) {
-			
-		}else {
-			
-		}
-	}
-
 }

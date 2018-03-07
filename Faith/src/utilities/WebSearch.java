@@ -1,6 +1,6 @@
 package utilities;
 
-import interaccion.Interaccion;
+import interaction.Interaction;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -56,7 +56,7 @@ class Browser extends Region {
 
 	public Browser() {
 		getStyleClass().add("browser");
-		webEngine.load(Interaccion.webUrl);
+		webEngine.load(Interaction.webUrl);
 		getChildren().add(browser);
 
 	}

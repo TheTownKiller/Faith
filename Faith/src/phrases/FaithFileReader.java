@@ -1,4 +1,4 @@
-package frases;
+package phrases;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -8,21 +8,21 @@ import java.util.ArrayList;
 
 public class FaithFileReader {
 
-	public ArrayList<String> lecturaFaith() {
-		ArrayList<String> resultado = new ArrayList<String>();
+	public ArrayList<String> faithReading(String url) {
+		ArrayList<String> result = new ArrayList<String>();
 		try {
-			BufferedReader fb = new BufferedReader(new FileReader("src/frases/Faith.txt"));
+			BufferedReader fb = new BufferedReader(new FileReader(url));
 			String line;
 			while ((line = fb.readLine()) != null) {
-				resultado.add(line);
+				result.add(line);
 			}
 			fb.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Fichero no Encontrado");
+			System.out.println("File not found");
 		} catch (IOException e) {
 			System.out.println("IOException");
 		}
-		return resultado;
+		return result;
 
 	}
 

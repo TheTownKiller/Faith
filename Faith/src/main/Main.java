@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import interaccion.Interaccion;
+import interaction.Interaction;
 import jframe.BottomPanel;
 import jframe.Display;
 import uk.co.caprica.vlcj.binding.LibVlc;
@@ -19,11 +19,11 @@ public class Main {
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 		try {
 			BufferedReader fb = new BufferedReader(new FileReader("C:/Users/Emman/git/Faith/Faith/Faith_saveData"));
-			Interaccion.nombreUsuario = fb.readLine();
-			Interaccion.designator = fb.readLine();
-			Interaccion.stage = fb.readLine().charAt(0);
+			Interaction.userName = fb.readLine();
+			Interaction.designator = fb.readLine();
+			Interaction.stage = fb.readLine().charAt(0);
 			fb.close();
-			Interaccion.firstTime = false;
+			Interaction.firstTime = false;
 			BottomPanel bottomPanel = new BottomPanel();
 			Display faith = new Display();
 			faith.createDisplayable(bottomPanel);

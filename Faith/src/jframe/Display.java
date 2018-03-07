@@ -10,14 +10,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
-import interaccion.Interaccion;
-import interaccion.UrlAssignator;
+import interaction.Interaction;
+import interaction.UrlAssignator;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
@@ -36,7 +35,7 @@ public class Display extends JFrame {
 	UrlAssignator urlAssignator = new UrlAssignator();
 	JPanel topPanel = new JPanel(new BorderLayout());
 	JSplitPane mainSplit;
-	Interaccion interaccion = new Interaccion();
+	Interaction interaction = new Interaction();
 	Canvas canvas = new Canvas();
 	MediaPlayerFactory mpf = new MediaPlayerFactory();
 	EmbeddedMediaPlayer emp = mpf.newEmbeddedMediaPlayer(new Win32FullScreenStrategy(this));
@@ -47,6 +46,7 @@ public class Display extends JFrame {
 	public static boolean endSearch = false;
 	public static boolean afterRun = false;
 	public static boolean firstSearch = true;
+	public static String language = "english";
 
 	public void createDisplayable(BottomPanel bottomPanel) {
 
@@ -76,10 +76,10 @@ public class Display extends JFrame {
 		setCursor(cursor);
 		setTitle("Faith");
 		addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                interaccion.dataSaver();
-            }
-        });
+			public void windowClosing(WindowEvent e) {
+				interaction.dataSaver();
+			}
+		});
 
 		restoreDefaults();
 
@@ -135,7 +135,7 @@ public class Display extends JFrame {
 				isSearching = false;
 			}
 			if (endSearch) {
-				Interaccion.stage = 'e';
+				Interaction.stage = 'e';
 				afterRun = true;
 				switchVisible();
 				endSearch = false;
@@ -181,4 +181,5 @@ public class Display extends JFrame {
 			BottomPanel.compactLetter = 50;
 		}
 	}
+
 }
