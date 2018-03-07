@@ -1,5 +1,5 @@
 yes
-sure
+yeah
 affirmative
 no
 negative
@@ -21,7 +21,7 @@ prefer
 another name
 am i
 ask
-ask you
+tell you
 im
 i am
 a
@@ -32,7 +32,7 @@ what is
 an
 the
 search
-on internet
+internet
 on the internet
 dont
 call
@@ -51,7 +51,9 @@ say
 how do i get to
 get
 to
-
-
-
-
+is
+ 
+?
+https://en.wikipedia.org/wiki/
+https://www.google.com/search?gl=us&hl=en&pws=0&source=hp&ei=N-WfWqToPMr6UtremJAO&q=
+&oq=

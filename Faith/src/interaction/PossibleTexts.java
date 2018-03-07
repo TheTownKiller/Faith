@@ -11,52 +11,52 @@ public class PossibleTexts {
 	private ArrayList<String> input = reader.faithReading(languageResources("input", Display.language));
 
 	public String getSwitchText(String text) {
-		text.replace("'", "");
-
-		if ((text.contains("cual") && text.contains("tu") && text.contains("nombre"))
-				|| (text.contains("como") && text.contains("te") && text.contains("llamas"))) {
+		text = text.replace("'", "");
+		
+		if ((text.contains(input.get(5)) && text.contains(input.get(6)) && text.contains(input.get(7)))
+				|| (text.contains(input.get(8)) && text.contains(input.get(9)) && text.contains(input.get(10)))) {
 			return "name";
 		}
-		if ((text.contains("como") && text.contains("puedo") && text.contains("llamarte"))) {
+		if ((text.contains(input.get(8)) && text.contains(input.get(11)) && text.contains(input.get(12)))) {
 			return "name2";
 		}
-		if ((text.contains("no") && text.contains("me") && text.contains("llamo"))
-				|| (text.contains("cambiar") && (text.contains("de") || text.contains("el")) && text.contains("nombre"))
-				|| (text.contains("cambiame") && (text.contains("de") || text.contains("el"))
-						&& text.contains("nombre"))) {
+		if ((text.contains(input.get(36)) && text.contains(input.get(37)) && text.contains(input.get(16)))
+				|| (text.contains(input.get(15)) && (text.contains(input.get(13)) || text.contains(input.get(32))) && text.contains(input.get(7)))
+				|| (text.contains(input.get(17)) && (text.contains(input.get(18)) || text.contains(input.get(19)))
+						&& text.contains(input.get(20)))) {
 			return "nameChange";
 		}
-		if ((text.contains("como") && text.contains("me") && text.contains("llamo"))
-				|| (text.contains("cual") && text.contains("mi") && text.contains("nombre"))) {
+		if ((text.contains(input.get(5)) && text.contains(input.get(13)) && text.contains(input.get(7)))
+				|| (text.contains(input.get(8)) && text.contains(input.get(21)) && text.contains(input.get(10)))) {
 			return "userName";
 		}
-		if ((text.contains("que") && text.contains("puedo") && (text.contains("preguntarte"))
-				|| (text.contains("decirte")))) {
+		if ((text.contains(input.get(5)) && text.contains(input.get(11)) && (text.contains(input.get(22)))
+				|| (text.contains(input.get(23))))) {
 			return "whatCanITellYou";
 		}
-		if ((text.contains("soy") && text.contains("una") && text.contains("mujer"))
-				|| (text.contains("soy") && text.contains("mujer"))) {
+		if ((text.contains(input.get(24)) && text.contains(input.get(26)) && text.contains(input.get(27)))
+				|| (text.contains(input.get(24)) && text.contains(input.get(28)))) {
 			return "ImWoman";
 		}
-		if ((text.contains("que") && text.contains("eres") || text.contains("quien")) && (text.contains("eres"))) {
+		if (((text.contains(input.get(5)) && text.contains(input.get(9))) || (text.contains(input.get(29))) && (text.contains(input.get(9))))) {
 			return "presentation";
 		}
-		if ((text.contains("que es"))) {
+		if ((text.contains(input.get(30)))) {
 			String[] splitString = text.split(" ");
 			String searched = "";
 			boolean startCollecting = false;
 			for (int i = 0; i < splitString.length; i++) {
-				if (splitString[i].startsWith("¿") || splitString[i].equals("que")) {
+				if (splitString[i].startsWith(input.get(54)) || splitString[i].equals(input.get(5))) {
 					startCollecting = true;
 				}
 				if (startCollecting) {
-					if (splitString[i].startsWith("¿")) {
+					if (splitString[i].startsWith(input.get(54))) {
 						splitString[i] = splitString[i].substring(1);
 					}
-					splitString[i].replace("//?", "");
-					if (splitString[i].equals("que") || splitString[i].equals("es") || splitString[i].equals("un")
-							|| splitString[i].equals("una") || splitString[i].equals("la")
-							|| splitString[i].equals("el")) {
+					splitString[i].replace(input.get(55), "");
+					if (splitString[i].equals(input.get(5)) || splitString[i].equals(input.get(53)) || splitString[i].equals(input.get(26))
+							|| splitString[i].equals(input.get(31)) || splitString[i].equals(input.get(32))
+							|| splitString[i].equals(input.get(38))) {
 						splitString[i] = "";
 					}
 					if (splitString[i] != "") {
@@ -65,19 +65,19 @@ public class PossibleTexts {
 				}
 			}
 
-			Interaction.webUrl = "https://es.wikipedia.org/wiki/" + searched;
+			Interaction.webUrl = input.get(56) + searched;
 			return "whatIs";
 		}
-		if ((text.contains("busca")) && (text.contains("en internet") || text.contains("por internet"))) {
+		if ((text.contains(input.get(33))) && (text.contains(input.get(35)) || text.contains(input.get(34)))) {
 			String[] splitString = text.split(" ");
 			String searched = "";
 			boolean startCollecting = false;
 			for (int i = 0; i < splitString.length; i++) {
-				if (splitString[i].startsWith("busca")) {
+				if (splitString[i].startsWith(input.get(33))) {
 					startCollecting = true;
 				}
 				if (startCollecting) {
-					if (splitString[i].startsWith("busca")) {
+					if (splitString[i].startsWith(input.get(33))) {
 						splitString[i] = "";
 					}
 					if (splitString[i] != "") {
@@ -85,8 +85,8 @@ public class PossibleTexts {
 					}
 				}
 			}
-			searched = searched.replaceFirst("en internet", "").replaceFirst("por internet", "");
-			Interaction.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
+			searched = searched.replaceFirst(input.get(35), "").replaceFirst(input.get(34), "");
+			Interaction.webUrl = input.get(57) + searched + input.get(58)
 					+ searched;
 			return "search";
 		}

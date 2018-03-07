@@ -14,6 +14,7 @@ public class Interaction {
 	private static PossibleTexts text = new PossibleTexts();
 	private ArrayList<String> phrases = reader.faithReading(text.languageResources("faith", Display.language));
 	private static ArrayList<String> punctuationMarks = reader.faithReading(text.languageResources("punctuation", Display.language));
+	private ArrayList<String> input = reader.faithReading(text.languageResources("input", Display.language));
 	private boolean activated = false;
 	private boolean hasHelped = false;
 	private boolean alreadyTold = false;
@@ -209,9 +210,9 @@ public class Interaction {
 	}
 
 	public String choice(String text) {
-		if (text.contains("si") || text.contains("claro" + "si") || text.contains("afirmativo")) {
+		if (text.contains(input.get(0)) || text.contains(input.get(1)) || text.contains(input.get(2))) {
 			return "YES";
-		} else if (text.contains("no") || text.contains("negativo")) {
+		} else if (text.contains(input.get(3)) || text.contains(input.get(4))) {
 			return "NO";
 		} else {
 			return "REPEAT";
