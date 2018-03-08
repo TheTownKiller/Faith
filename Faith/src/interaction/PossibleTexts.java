@@ -9,6 +9,7 @@ public class PossibleTexts {
 
 	private FaithFileReader reader = new FaithFileReader();
 	private ArrayList<String> input = reader.faithReading(languageResources("input", Display.language));
+	private ArrayList<String> links = reader.faithReading(languageResources("punctuation", Display.language));
 
 	public String getSwitchText(String text) {
 		text = text.replace("'", "");
@@ -22,8 +23,7 @@ public class PossibleTexts {
 		}
 		if ((text.contains(input.get(36)) && text.contains(input.get(37)) && text.contains(input.get(16)))
 				|| (text.contains(input.get(15)) && (text.contains(input.get(13)) || text.contains(input.get(32))) && text.contains(input.get(7)))
-				|| (text.contains(input.get(17)) && (text.contains(input.get(18)) || text.contains(input.get(19)))
-						&& text.contains(input.get(20)))) {
+				|| (text.contains(input.get(17)) && (text.contains(input.get(18)) || text.contains(input.get(19))) && text.contains(input.get(20)))) {
 			return "nameChange";
 		}
 		if ((text.contains(input.get(5)) && text.contains(input.get(13)) && text.contains(input.get(7)))
@@ -46,15 +46,15 @@ public class PossibleTexts {
 			String searched = "";
 			boolean startCollecting = false;
 			for (int i = 0; i < splitString.length; i++) {
-				if (splitString[i].startsWith(input.get(54)) || splitString[i].equals(input.get(5))) {
+				if (splitString[i].startsWith(links.get(0)) || splitString[i].equals(input.get(5))) {
 					startCollecting = true;
 				}
 				if (startCollecting) {
-					if (splitString[i].startsWith(input.get(54))) {
+					if (splitString[i].startsWith(input.get(0))) {
 						splitString[i] = splitString[i].substring(1);
 					}
-					splitString[i].replace(input.get(55), "");
-					if (splitString[i].equals(input.get(5)) || splitString[i].equals(input.get(53)) || splitString[i].equals(input.get(26))
+					splitString[i].replace(input.get(1), "");
+					if (splitString[i].equals(input.get(5)) || splitString[i].equals(input.get(25)) || splitString[i].equals(input.get(26))
 							|| splitString[i].equals(input.get(31)) || splitString[i].equals(input.get(32))
 							|| splitString[i].equals(input.get(38))) {
 						splitString[i] = "";
@@ -65,7 +65,7 @@ public class PossibleTexts {
 				}
 			}
 
-			Interaction.webUrl = input.get(56) + searched;
+			Interaction.webUrl = links.get(7) + searched;
 			return "whatIs";
 		}
 		if ((text.contains(input.get(33))) && (text.contains(input.get(35)) || text.contains(input.get(34)))) {
@@ -86,20 +86,19 @@ public class PossibleTexts {
 				}
 			}
 			searched = searched.replaceFirst(input.get(35), "").replaceFirst(input.get(34), "");
-			Interaction.webUrl = input.get(57) + searched + input.get(58)
-					+ searched;
+			Interaction.webUrl = links.get(8) + searched + links.get(9) + searched;
 			return "search";
 		}
-		if ((text.contains("busca"))) {
+		if ((text.contains(input.get(33)))) {
 			String[] splitString = text.split(" ");
 			String searched = "";
 			boolean startCollecting = false;
 			for (int i = 0; i < splitString.length; i++) {
-				if (splitString[i].startsWith("busca")) {
+				if (splitString[i].startsWith(input.get(33))) {
 					startCollecting = true;
 				}
 				if (startCollecting) {
-					if (splitString[i].startsWith("busca")) {
+					if (splitString[i].startsWith(input.get(33))) {
 						splitString[i] = "";
 					}
 					if (splitString[i] != "") {
@@ -107,39 +106,38 @@ public class PossibleTexts {
 					}
 				}
 			}
-			Interaction.webUrl = "https://www.google.es/search?source=hp&ei=h3GNWu2HOYOGU6fgm6gI&q=" + searched + "&oq="
-					+ searched;
+			Interaction.webUrl = links.get(8) + searched + links.get(9) + searched;
 			return "search";
 		}
-		if ((text.contains("no") && text.contains("me") && text.contains("llames")
-				&& (text.contains("maestro") || text.contains("maestra")))
-				|| (text.contains("llamame") && text.contains("por") && text.contains("mi")
-						&& text.contains("nombre"))) {
+		if ((text.contains(input.get(36)) && text.contains(input.get(37)) && text.contains(input.get(16))
+				&& (text.contains(links.get(5)) || text.contains(links.get(6))))
+				|| (text.contains(input.get(37)) && text.contains(input.get(38)) && text.contains(input.get(39))
+						&& text.contains(input.get(20)))) {
 			return "designatorChange";
 		}
-		if ((text.contains("gracias") || (text.contains("estoy") && text.contains("agradecido")))) {
+		if ((text.contains(input.get(40)) || (text.contains(input.get(41)) && text.contains(input.get(42))))) {
 			return "thanks";
 		}
-		if ((text.contains("besame") || (text.contains("casate") && text.contains("conmigo"))
-				|| (text.contains("dame") && text.contains("un beso")))) {
+		if ((text.contains(input.get(43)) || (text.contains(input.get(44)) && text.contains(input.get(16)))
+				|| (text.contains(input.get(45)) && text.contains(input.get(46))))) {
 			return "loveAttempt";
 		}
-		if ((text.contains("te quiero") || (text.contains("te amo")))) {
+		if ((text.contains(input.get(47)) || (text.contains(input.get(48))))) {
 			return "loveAttempt2";
 		}
-		if ((text.contains("di") && text.contains("mi") && text.contains("nombre"))) {
+		if ((text.contains(input.get(49)) && text.contains(input.get(13)) && text.contains(input.get(7)))) {
 			return "sayMyName";
 		}
-		if ((text.contains("como llegar a"))) {
+		if ((text.contains(input.get(50)) || (text.contains(input.get(14))))) {
 			String[] splitString = text.split(" ");
 			String searched = "";
 			boolean startCollecting = false;
 			for (int i = 0; i < splitString.length; i++) {
-				if (splitString[i].startsWith("llegar")) {
+				if (splitString[i].startsWith(input.get(51))) {
 					startCollecting = true;
 				}
 				if (startCollecting) {
-					if (splitString[i].startsWith("llegar") || splitString[i].equals("a")) {
+					if (splitString[i].startsWith(input.get(51)) || splitString[i].equals(input.get(52))) {
 						splitString[i] = "";
 					}
 					if (splitString[i] != "") {
@@ -147,7 +145,7 @@ public class PossibleTexts {
 					}
 				}
 			}
-			Interaction.webUrl = "https://www.google.es/maps/dir/mi ubicación/" + searched;
+			Interaction.webUrl = links.get(10) + searched;
 			return "howToGetTo";
 		}
 		return null;
@@ -159,13 +157,13 @@ public class PossibleTexts {
 		} else if ((type == "input") && (language == "english")) {
 			return "src/resources/language/english/input_En.txt";
 		} else if ((type == "punctuation") && (language == "english")) {
-			return "src/resources/language/english/punctuation&Designator.txt";
+			return "src/resources/language/english/pun&resourc_En.txt";
 		} else if ((type == "faith") && (language == "español")) {
 			return "src/resources/language/español/Faith_Es.txt";
 		} else if ((type == "input") && (language == "español")) {
 			return "src/resources/language/español/input_Es.txt";
 		} else {
-			return "src/resources/language/español/puntuacion&Designador.txt";
+			return "src/resources/language/español/pun&resourc_Es.txt";
 		}
 	}
 
